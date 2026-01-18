@@ -14,7 +14,7 @@ let package = Package(
         .library(
             name: "RFC 2388",
             targets: ["RFC 2388"]
-        ),
+        )
     ],
     dependencies: [
         .package(path: "../swift-ieee-754"),
@@ -26,12 +26,8 @@ let package = Package(
             dependencies: [
                 .product(name: "IEEE 754", package: "swift-ieee-754"),
                 .product(name: "WHATWG Form URL Encoded", package: "swift-whatwg-url")
-            ]
-        ),
-        .testTarget(
-            name: "RFC 2388".tests,
-            dependencies: ["RFC 2388"]
-        ),
+    ]
+        )
     ],
     swiftLanguageModes: [.v6]
 )
