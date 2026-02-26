@@ -27,7 +27,13 @@ let package = Package(
                 .product(name: "IEEE 754", package: "swift-ieee-754"),
                 .product(name: "WHATWG Form URL Encoded", package: "swift-whatwg-url")
     ]
-        )
+        ),
+        .testTarget(
+            name: "RFC 2388 Tests",
+            dependencies: [
+                "RFC 2388",
+            ]
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
@@ -43,6 +49,7 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
         .enableUpcomingFeature("MemberImportVisibility"),
+        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
         .enableExperimentalFeature("Lifetimes"),
         .enableExperimentalFeature("SuppressedAssociatedTypes"),
         .enableExperimentalFeature("SuppressedAssociatedTypesWithDefaults"),
