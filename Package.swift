@@ -18,14 +18,16 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../swift-ieee-754"),
-        .package(path: "../swift-whatwg-url")
+        .package(path: "../swift-whatwg-url"),
+        .package(path: "../../swift-primitives/swift-parser-primitives")
     ],
     targets: [
         .target(
             name: "RFC 2388",
             dependencies: [
                 .product(name: "IEEE 754", package: "swift-ieee-754"),
-                .product(name: "WHATWG Form URL Encoded", package: "swift-whatwg-url")
+                .product(name: "WHATWG Form URL Encoded", package: "swift-whatwg-url"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives")
     ]
         ),
         .testTarget(
