@@ -122,23 +122,48 @@ extension FormData {
         from query: String,
         sort: Bool = false
     ) -> [(String, String?)] {
-        let pairs =
-            query
-            .split(separator: "&")
-            .map { (pairString: Substring) -> (name: String, value: String?) in
-                let pairArray =
-                    pairString
-                    .split(separator: "=", maxSplits: 1, omittingEmptySubsequences: false)
-                    .compactMap { substring in
-                        try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
-                            String(substring),
-                            plusAsSpace: true
-                        )
-                    }
-                return (pairArray[0], pairArray.count == 2 ? pairArray[1] : nil)
+        let bytes = Array(query.utf8)
+        var pairs: [(String, String?)] = []
+        var pairStart = 0
+
+        func addPair(_ lo: Int, _ hi: Int) {
+            // Find first '=' within [lo, hi)
+            var eqIdx: Int? = nil
+            for j in lo..<hi where bytes[j] == 0x3D {
+                eqIdx = j
+                break
             }
 
-        return sort ? pairs.sorted { $0.name < $1.name } : pairs
+            if let eq = eqIdx {
+                let rawName = String(decoding: bytes[lo..<eq], as: UTF8.self)
+                let rawValue = String(decoding: bytes[(eq &+ 1)..<hi], as: UTF8.self)
+                guard let name = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
+                    rawName, plusAsSpace: true
+                ) else { return }
+                let value = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
+                    rawValue, plusAsSpace: true
+                )
+                pairs.append((name, value))
+            } else {
+                let rawName = String(decoding: bytes[lo..<hi], as: UTF8.self)
+                guard let name = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
+                    rawName, plusAsSpace: true
+                ) else { return }
+                pairs.append((name, nil))
+            }
+        }
+
+        for idx in 0..<bytes.count {
+            if bytes[idx] == 0x26 {  // '&'
+                addPair(pairStart, idx)
+                pairStart = idx &+ 1
+            }
+        }
+        if pairStart <= bytes.count {
+            addPair(pairStart, bytes.count)
+        }
+
+        return sort ? pairs.sorted { $0.0 < $1.0 } : pairs
     }
 
     /// Extracts a path from a key name with bracket notation.
