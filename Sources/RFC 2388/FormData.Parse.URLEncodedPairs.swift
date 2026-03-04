@@ -38,7 +38,6 @@ extension FormData.Parse.URLEncodedPairs {
 }
 
 extension FormData.Parse.URLEncodedPairs: Parser.`Protocol` {
-    public typealias ParseOutput = Output
     public typealias Failure = Never
 
     @inlinable
