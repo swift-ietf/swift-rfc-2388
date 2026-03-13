@@ -17,8 +17,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../../../swift-ieee/swift-ieee-754"),
-        .package(path: "../../../swift-whatwg/swift-whatwg-url"),
+        .package(path: "../../swift-ieee/swift-ieee-754"),
+        .package(path: "../../swift-whatwg/swift-whatwg-url"),
         .package(path: "../../swift-primitives/swift-parser-primitives")
     ],
     targets: [
