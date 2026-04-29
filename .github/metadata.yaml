@@ -1,0 +1,11 @@
+# .github/metadata.yaml
+# Triaged by AI-assisted bulk pass (2026-04-29).
+description: "Swift implementation of RFC 2388: Returning Values from Forms - multipart/form-data Encoding."
+topics:
+  - standards
+  - rfc
+  - rfc-2388
+  - http
+  - forms
+  - multipart
+homepage: "https://swift-institute.org"
