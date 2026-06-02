@@ -17,9 +17,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../../swift-ieee/swift-ieee-754"),
-        .package(path: "../../swift-whatwg/swift-whatwg-url"),
-        .package(path: "../../swift-primitives/swift-parser-primitives")
+        .package(url: "https://github.com/swift-ieee/swift-ieee-754.git", branch: "main"),
+        .package(url: "https://github.com/swift-whatwg/swift-whatwg-url.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main")
     ],
     targets: [
         .target(
