@@ -1,6 +1,6 @@
 # Swift RFC 2388
 
-[![CI](https://github.com/swift-standards/swift-rfc-2388/workflows/CI/badge.svg)](https://github.com/swift-standards/swift-rfc-2388/actions/workflows/ci.yml)
+[![CI](https://github.com/swift-ietf/swift-rfc-2388/workflows/CI/badge.svg)](https://github.com/swift-ietf/swift-rfc-2388/actions/workflows/ci.yml)
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
 Swift implementation of RFC 2388: Returning Values from Forms - multipart/form-data encoding standard.
@@ -26,7 +26,7 @@ Add swift-rfc-2388 to your package dependencies:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-standards/swift-rfc-2388.git", from: "0.1.0")
+    .package(url: "https://github.com/swift-ietf/swift-rfc-2388.git", from: "0.1.5")
 ]
 ```
 
@@ -149,7 +149,7 @@ var dictionaryValue: [String: FormData]?  // Extract if .dictionary case
 ## Related Packages
 
 ### Dependencies
-- [swift-whatwg-url-encoding](https://github.com/swift-standards/swift-whatwg-url-encoding) - WHATWG URL encoding utilities for percent-encoding with plus-as-space convention
+- [swift-whatwg-url-encoding](https://github.com/swift-whatwg/swift-whatwg-url-encoding) - WHATWG URL encoding utilities for percent-encoding with plus-as-space convention
 
 ### Used By
 - [swift-url-form-coding](https://github.com/coenttb/swift-url-form-coding) - Codable-based form encoding/decoding using RFC 2388
