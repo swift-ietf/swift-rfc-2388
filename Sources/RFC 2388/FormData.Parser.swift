@@ -137,18 +137,25 @@ extension FormData {
             if let eq = eqIdx {
                 let rawName = String(decoding: bytes[lo..<eq], as: UTF8.self)
                 let rawValue = String(decoding: bytes[(eq &+ 1)..<hi], as: UTF8.self)
-                guard let name = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
-                    rawName, plusAsSpace: true
-                ) else { return }
+                guard
+                    let name = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
+                        rawName,
+                        plusAsSpace: true
+                    )
+                else { return }
                 let value = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
-                    rawValue, plusAsSpace: true
+                    rawValue,
+                    plusAsSpace: true
                 )
                 pairs.append((name, value))
             } else {
                 let rawName = String(decoding: bytes[lo..<hi], as: UTF8.self)
-                guard let name = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
-                    rawName, plusAsSpace: true
-                ) else { return }
+                guard
+                    let name = try? WHATWG_Form_URL_Encoded.PercentEncoding.decode(
+                        rawName,
+                        plusAsSpace: true
+                    )
+                else { return }
                 pairs.append((name, nil))
             }
         }
