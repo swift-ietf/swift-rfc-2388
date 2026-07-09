@@ -127,6 +127,12 @@ extension FormData {
         var pairStart = 0
 
         func addPair(_ lo: Int, _ hi: Int) {
+            // Empty segments produce no pair, matching the omitting-empty
+            // semantics of the former `query.split(separator: "&")`. This
+            // covers leading, trailing, and doubled `&` as well as an empty
+            // query — an empty segment must not be emitted as `("", nil)`.
+            guard lo < hi else { return }
+
             // Find first '=' within [lo, hi)
             var eqIdx: Int? = nil
             for j in lo..<hi where bytes[j] == 0x3D {

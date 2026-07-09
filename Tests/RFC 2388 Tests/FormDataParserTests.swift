@@ -114,4 +114,64 @@ struct `FormData Parser Tests` {
         #expect(dict["name"]?.stringValue == "John Doe")
         #expect(dict["message"]?.stringValue == "Hello World")
     }
+
+    // MARK: - Empty-segment regression (commit 4ecf84e)
+    //
+    // Byte-level scanning must reproduce the omitting-empty semantics of the
+    // former `query.split(separator: "&")`: leading, trailing, and doubled `&`
+    // and an empty query emit no pair. A spurious `("", nil)` pair maps to an
+    // empty path, which `insert` treats as a whole-structure replacement —
+    // silently clobbering already-parsed data.
+
+    @Test
+    func `Trailing ampersand does not clobber parsed data`() {
+        let pairs = FormData.extractPairs(from: "name=Test&")
+        #expect(pairs.count == 1)
+        #expect(pairs[0].0 == "name")
+        #expect(pairs[0].1 == "Test")
+
+        #expect(FormData.parse("name=Test&") == .dictionary(["name": .value("Test")]))
+    }
+
+    @Test
+    func `Leading ampersand emits no spurious pair`() {
+        let pairs = FormData.extractPairs(from: "&name=Test")
+        #expect(pairs.count == 1)
+        #expect(pairs[0].0 == "name")
+        #expect(pairs[0].1 == "Test")
+
+        #expect(FormData.parse("&name=Test") == .dictionary(["name": .value("Test")]))
+    }
+
+    @Test
+    func `Doubled ampersand emits no spurious pair`() {
+        let pairs = FormData.extractPairs(from: "a=1&&b=2")
+        #expect(pairs.count == 2)
+        #expect(pairs[0].0 == "a")
+        #expect(pairs[0].1 == "1")
+        #expect(pairs[1].0 == "b")
+        #expect(pairs[1].1 == "2")
+
+        #expect(FormData.parse("a=1&&b=2") == .dictionary(["a": .value("1"), "b": .value("2")]))
+    }
+
+    @Test
+    func `Empty query yields no pairs`() {
+        #expect(FormData.extractPairs(from: "").isEmpty)
+        #expect(FormData.parse("") == .dictionary([:]))
+    }
+
+    @Test
+    func `Empty key with a value is preserved`() {
+        // A non-empty segment `=x` still yields an empty-key pair, exactly as
+        // the old `.split(separator: "=", omittingEmptySubsequences: false)`
+        // did. The empty key maps to an empty path, so `parse` reduces to
+        // `.value("x")` — long-standing pre-4ecf84e behavior, left unchanged.
+        let pairs = FormData.extractPairs(from: "=x")
+        #expect(pairs.count == 1)
+        #expect(pairs[0].0 == "")
+        #expect(pairs[0].1 == "x")
+
+        #expect(FormData.parse("=x") == .value("x"))
+    }
 }
