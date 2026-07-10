@@ -169,7 +169,7 @@ struct `FormData Parser Tests` {
         // `.value("x")` — long-standing pre-4ecf84e behavior, left unchanged.
         let pairs = FormData.extractPairs(from: "=x")
         #expect(pairs.count == 1)
-        #expect(pairs[0].0 == "")
+        #expect(pairs[0].0.isEmpty)
         #expect(pairs[0].1 == "x")
 
         #expect(FormData.parse("=x") == .value("x"))
