@@ -17,18 +17,20 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-ieee/swift-ieee-754.git", branch: "main"),
-        .package(url: "https://github.com/swift-whatwg/swift-whatwg-url.git", branch: "main"),
-        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main")
+        .package(
+            url: "https://github.com/swift-foundations/swift-html-form-coder.git",
+            branch: "main"
+        ),
+        .package(url: "https://github.com/swift-standards/swift-html-standard.git", branch: "main")
     ],
     targets: [
         .target(
             name: "RFC 2388",
             dependencies: [
-                .product(name: "IEEE 754", package: "swift-ieee-754"),
-                .product(name: "WHATWG Form URL Encoded", package: "swift-whatwg-url"),
-                .product(name: "Parser Primitives", package: "swift-parser-primitives")
-    ]
+                .product(name: "HTML Form Coder", package: "swift-html-form-coder"),
+                .product(name: "HTML Form Coder Nested", package: "swift-html-form-coder"),
+                .product(name: "HTML Standard", package: "swift-html-standard"),
+            ]
         ),
         .testTarget(
             name: "RFC 2388 Tests",
