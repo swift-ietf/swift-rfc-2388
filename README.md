@@ -1,7 +1,7 @@
 # Swift RFC 2388
 
-[![CI](https://github.com/swift-ietf/swift-rfc-2388/workflows/CI/badge.svg)](https://github.com/swift-ietf/swift-rfc-2388/actions/workflows/ci.yml)
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+[![CI](https://github.com/swift-ietf/swift-rfc-2388/workflows/CI/badge.svg)](https://github.com/swift-ietf/swift-rfc-2388/actions/workflows/ci.yml)
 
 Swift implementation of RFC 2388: Returning Values from Forms - multipart/form-data encoding standard.
 
