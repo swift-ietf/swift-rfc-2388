@@ -11,7 +11,12 @@ import Testing
 
 @Suite
 struct `FormData Encoder Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
 
+extension `FormData Encoder Tests`.Unit {
     @Test
     func `Encode simple values`() {
         let data = FormData.dictionary([

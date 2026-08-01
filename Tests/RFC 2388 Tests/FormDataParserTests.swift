@@ -11,7 +11,12 @@ import Testing
 
 @Suite
 struct `FormData Parser Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
 
+extension `FormData Parser Tests`.Unit {
     @Test
     func `Parse simple key-value pairs`() {
         let result = FormData.parse("name=John&age=30")

@@ -10,7 +10,12 @@ import Testing
 
 @Suite
 struct `README Verification` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
 
+extension `README Verification`.Unit {
     @Test
     func `README Line 31-35: Parse simple key-value pairs`() throws {
         let data = FormData.parse("name=John&age=30")
