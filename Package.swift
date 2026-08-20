@@ -1,14 +1,14 @@
-// swift-tools-version: 6.3.3
+// swift-tools-version: 6.4
 
 import PackageDescription
 
 let package = Package(
     name: "swift-rfc-2388",
     platforms: [
-        .macOS("27"),
-        .iOS("27"),
-        .tvOS("27"),
-        .watchOS("27")
+        .macOS(.v27),
+        .iOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27),
     ],
     products: [
         .library(
@@ -21,7 +21,7 @@ let package = Package(
             url: "https://github.com/swift-foundations/swift-html-form-coder.git",
             branch: "main"
         ),
-        .package(url: "https://github.com/swift-standards/swift-html-standard.git", branch: "main")
+        .package(url: "https://github.com/swift-standards/swift-html-standard.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -35,7 +35,7 @@ let package = Package(
         .testTarget(
             name: "RFC 2388 Tests",
             dependencies: [
-                "RFC 2388",
+                "RFC 2388"
             ]
         ),
     ],
